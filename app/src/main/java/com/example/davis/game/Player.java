@@ -6,13 +6,12 @@ import android.graphics.Canvas;
 public class Player extends GameObject{
     private Bitmap spritesheet;
     private int score;
-    private double dyA;
     private boolean up;
     private boolean playing;
     private Animation animation = new Animation();
     private long startTime;
 
-    public Player(Bitmap res, int w, int h, int numFrames) {
+    public Player(Bitmap res, int w, int h, int numFrames){
 
         x = 100;
         y = GameMain.HEIGHT / 2;
@@ -24,15 +23,13 @@ public class Player extends GameObject{
         Bitmap[] image = new Bitmap[numFrames];
         spritesheet = res;
 
-        for (int i = 0; i < image.length; i++)
-        {
-            image[i] = Bitmap.createBitmap(spritesheet, i*width, 0, width, height);
+        for (int i = 0; i < image.length; i++){
+            image[i] = Bitmap.createBitmap(spritesheet, i * width, 0, width, height);
         }
 
         animation.setFrames(image);
         animation.setDelay(10);
         startTime = System.nanoTime();
-
     }
 
     public void setUp(boolean b){
@@ -40,7 +37,7 @@ public class Player extends GameObject{
     }
 
     public void update(){
-        long elapsed = (System.nanoTime()-startTime)/1000000;
+        long elapsed = (System.nanoTime() - startTime) / 1000000;
 
         if(elapsed  > 100){
             score++;
@@ -50,22 +47,26 @@ public class Player extends GameObject{
         animation.update();
 
         if(up){
-            dy = (int)(dyA -= 1);
-
+            dy -= 1;
         }
+
         else{
-            dy = (int)(dyA += 1);
+            dy += 1;
         }
 
-        if(dy>14)dy = 14;
-        if(dy<-14)dy = -14;
+        if(dy > 10){
+            dy = 10;
+        }
 
-        y += dy*2;
-        dy = 0;
+        if(dy < -10){
+            dy =- 10;
+        }
+
+        y += dy * 2;
     }
 
     public void draw(Canvas canvas){
-        canvas.drawBitmap(animation.getImage(),x,y,null);
+        canvas.drawBitmap(animation.getImage(), x, y, null);
     }
 
     public int getScore(){
@@ -80,8 +81,8 @@ public class Player extends GameObject{
         playing = b;
     }
 
-    public void resetDYA(){
-        dyA = 0;
+    public void resetDY(){
+        dy = 0;
     }
 
     public void resetScore(){

@@ -20,11 +20,11 @@ public class Animation{
     }
     
     public void setFrame(int i){
-        currentFrame= i;
+        currentFrame = i;
     }
 
     public void update(){
-        long elapsed = (System.nanoTime()-startTime)/1000000;
+        long elapsed = (System.nanoTime() - startTime) / 1000000;
 
         if(elapsed > delay){
             currentFrame++;
@@ -36,6 +36,7 @@ public class Animation{
             playedOnce = true;
         }
     }
+
     public Bitmap getImage(){
         return frames[currentFrame];
     }

@@ -2,7 +2,7 @@ package com.example.davis.game;
 
 import android.graphics.Rect;
 
-public abstract class GameObject {
+public abstract class GameObject{
 
     protected int x;
     protected int y;

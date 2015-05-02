@@ -25,19 +25,19 @@ public class MainThread extends Thread{
         long waitTime;
         long totalTime = 0;
         long frameCount = 0;
-        long targetTime = 1000/FPS;
+        long targetTime = 1000 / FPS;
 
         while(running) {
             startTime = System.nanoTime();
             canvas = null;
 
-            try {
+            try{
                 canvas = this.surfaceHolder.lockCanvas();
                 synchronized (surfaceHolder){
                     this.gameMain.update();
                     this.gameMain.draw(canvas);
                 }
-            } catch (Exception e) {}
+            } catch(Exception e){}
 
             finally{
                 if(canvas != null){
@@ -56,11 +56,11 @@ public class MainThread extends Thread{
                 this.sleep(waitTime);
             } catch(Exception e){}
 
-            totalTime += System.nanoTime()-startTime;
+            totalTime += System.nanoTime() - startTime;
             frameCount++;
 
             if(frameCount == FPS){
-                avgFPS = 1000/((totalTime/frameCount)/1000000);
+                avgFPS = 1000 / ((totalTime/frameCount) / 1000000);
                 frameCount = 0;
                 totalTime = 0;
                 System.out.println(avgFPS);
